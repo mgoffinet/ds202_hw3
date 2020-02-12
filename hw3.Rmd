@@ -53,7 +53,7 @@ female5
 
 **5) How does the tipping amount (tip) depend on the overall bill (total_bill)?**
 ```{r}
-ggplot(tips, aes(x=total_bill, y=tip)) + geom_point() + labs(title="Total Bill vs Tip", x = "Total Bill", y = "Tip")
+ggplot(tips, aes(x=total_bill, y=tip)) + geom_point() + labs(title="Total Bill vs Tip", x = "Total Bill ($)", y = "Tip ($)")
 ```
 
 Generally, as the total bill amount increases, the tip amount increases as well. The two variables have a fairly strong positive correlation. A reason for this is that most people tend to tip ten to twenty percent of the total bill amount for satisfactory service.
@@ -72,7 +72,7 @@ The tiprate was calculated to be the tip amount divided by the total bill amount
 **8) Make a boxplot of the tip rate by time.**
 ```{r}
 tips$time = factor(tips$time, levels(tips$time)[c(2,1)])
-ggplot(tips, aes(x=time, y=tiprate)) + geom_boxplot() + labs(x="Time", y="tiprate", title="Time vs Tip Rate")
+ggplot(tips, aes(x=time, y=tiprate)) + geom_boxplot() + labs(x="Meal Time", y="Tip Rate (tip/total_bill)", title="Time vs Tip Rate")
 ```
 
 The two boxplots are roughly the same- both sets are centered at about 15%, and have lower tails ending around 5% and upper tails ending just shy of 30%. However, the dinner tip rates have four outliers, while there are no outliers in the lunch set. All of the dinner outliers are on the above average side of the boxplot, with the most extreme being approximately 70%.
@@ -80,14 +80,14 @@ The two boxplots are roughly the same- both sets are centered at about 15%, and 
 **9) How does smoking behavior and gender of the person who pays impact the relationship between tip and total bill?**
 ```{r}
 tips$ss <- interaction(tips$smoker, tips$sex)
-ggplot(tips, aes(x=ss, y = tiprate)) + geom_boxplot() + labs(x="Smoker/Sex", y="Tip Rate", title = "Smoker/Sex vs Tip Rate")
+ggplot(tips, aes(x=ss, y = tiprate)) + geom_boxplot() + labs(x="Smoker & Sex", y="Tip Rate (tip/total_bill)", title = "Smoker & Sex of Patron vs Tip Rate")
 ```
 
 There is no significant difference between any two of the above boxplots. The median tiprate of every plot is roughly between 15 and 18 percent. Male bill payers have outliers on the greater extreme, whereas female bill payers have outliers on both ends of the extreme. Each boxplot has a fairly even distribution except for female nonsmokers- that data is concentrated between Q1 and the median (roughly 15%). Male smokers tiprate has the widest spread and the most extreme outlier (a 70% tip). Female smokers and male nonsmoker have distributions that are fairly equal in range, though the IQR of female smokers is more concentrated than that of male nonsmokers.
 
 **10) Use ggplot2 to find a graphical summary of the relationship between day of the week and gender of the person paying the bill. What can you say about this relationship?**
 ```{r}
-ggplot(tips, aes(fill=sex, y=1,x=day)) + geom_bar(position="fill", stat="identity") + labs(title="Sex of Patron vs Day of the Week",y="Percentage", x="Day of the Week", fill="Sex")
+ggplot(tips, aes(fill=sex, y=1,x=day)) + geom_bar(position="fill", stat="identity") + labs(title="Sex of Patron vs Day of the Week",y="Percentage %", x="Day of the Week", fill="Sex of Patron")
 ```
 
 The proportion of men paying the bill is greater than that of women for every day except Thursday, where women make up just more than 50% of bill payers. The proportion of female bill payers steadily decreases as the weekend goes on, with women making up just more than 25% of total bill payers on Sunday.
